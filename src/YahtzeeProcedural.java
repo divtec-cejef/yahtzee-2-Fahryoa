@@ -112,6 +112,22 @@ public class YahtzeeProcedural {
 
     }
 
+    public
+
+    public static int compterOccurence(int[] listeDes, int chiffreACompter) {
+
+        int nbrOccurences = 0;
+
+        for (int i = 0; i < 5; i++) {
+           if (listeDes[i] ==  chiffreACompter) {
+               nbrOccurences++;
+           }
+        }
+
+        return nbrOccurences;
+
+    }
+
     public static void main(String[] args) {
 
         int[] lesFaces = new int[5];
