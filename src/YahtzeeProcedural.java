@@ -57,7 +57,7 @@ public class YahtzeeProcedural {
     public static int[] relancerLesDes() {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Quels dés relancer ? (1 - 5) \n");
+        System.out.print("Relancer les dés (1 - 5) ou quitter (6) \n");
         String ligne = scanner.nextLine();
 
         // Supprime tous les espaces et crée un liste String avec les chiffres saisies
@@ -96,6 +96,11 @@ public class YahtzeeProcedural {
 
     }
 
+    /**
+     * relance les dées choisient par l'utilisateur
+     * @param listeDesRelancer la liste des dées a relancer
+     * @param lesFaces la liste des face a changer
+     */
     public static void relancerLesDesChoisi(int[] listeDesRelancer, int[] lesFaces) {
 
         // relance les des choisis par l'utilisateur
@@ -114,14 +119,27 @@ public class YahtzeeProcedural {
 
         afficherDe(lesFaces);
 
-        // Permet 2 relance
-        for (int j = 0; j < 2; j++) {
+        int compteur = 0;
+        int[] listeDesRelancer;
+        boolean arreterParUtilisateur = false;
 
-            int[] listeDesRelancer =  relancerLesDes();
+        // Permet 2 relance ou de quitter si aucun dés n'est relancer
+        do {
+
+            listeDesRelancer = relancerLesDes();
 
             relancerLesDesChoisi(listeDesRelancer, lesFaces);
 
             afficherDe(lesFaces);
-        }
+
+            compteur++;
+
+            for  (int faces : listeDesRelancer) {
+                if (faces == 6) {
+                    arreterParUtilisateur = true;
+                }
+            }
+
+        } while (compteur < 2 && !arreterParUtilisateur);
     }
 }
