@@ -56,64 +56,32 @@ public class YahtzeeProcedural {
      */
     public static int[] relancerLesDes() {
 
-        int[] tableauDes = new int[5];
-
-        for (int i = 0; i < 5; i++) {
-            tableauDes[i] = 5;
-        }
-
         Scanner scanner = new Scanner(System.in);
         System.out.print("Quels dés relancer ? (1 - 5) \n");
         String ligne = scanner.nextLine();
 
         // Supprime tous les espaces et crée un liste String avec les chiffres saisies
-        String[] token = ligne.trim().split("\\s+");
+        String[] valeur = ligne.trim().split("\\s+");
 
-        LinkedList<Integer> listeDes = new LinkedList<Integer>();
+        int[] tableauDes = new int[valeur.length];
 
         //Transforme les valeurs String en int
-        for (String tokens : token) {
-            switch (tokens) {
-                case "1":listeDes.add(0);break;
-                case "2":listeDes.add(1);break;
-                case "3":listeDes.add(2);break;
-                case "4":listeDes.add(3);break;
-                case "5":listeDes.add(4);break;
-            }
-        }
+        for (int i = 0; i < valeur.length; i++) {
 
-        boolean un = false;
-        boolean deux = false;
-        boolean trois = false;
-        boolean quatre = false;
-        boolean cinq = false;
+                tableauDes[i] = Integer.parseInt(valeur[i]) - 1;
 
-        for (int i = 0; i < listeDes.size(); i++) {
-
-            if ((-1 < listeDes.get(i) || listeDes.get(i) > 5) && un && deux && trois && quatre && cinq) {
-                listeDes.remove(i);
-            } else {
-                switch (listeDes.get(i)) {
-                    case 0: un = true; break;
-                    case 1: deux = true; break;
-                    case 2: trois = true; break;
-                    case 3: cinq = true; break;
-                    case 4: quatre = true; break;
-                }
-            }
-
-        }
-
-        for (int i = 0; i < listeDes.size(); i++) {
-            tableauDes[i] = listeDes.get(i);
         }
 
         return tableauDes;
 
     }
 
-    public
-
+    /**
+     *
+     * @param listeDes
+     * @param chiffreACompter
+     * @return
+     */
     public static int compterOccurence(int[] listeDes, int chiffreACompter) {
 
         int nbrOccurences = 0;
@@ -128,10 +96,19 @@ public class YahtzeeProcedural {
 
     }
 
+    public static void relancerLesDesChoisi(int[] listeDesRelancer, int[] lesFaces) {
+
+        // relance les des choisis par l'utilisateur
+        for (int i = 0; i < listeDesRelancer.length; i++) {
+            if (listeDesRelancer[i] < 5 && listeDesRelancer[i] >= 0) {
+                lesFaces[listeDesRelancer[i]] = tirerUnDe();
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         int[] lesFaces = new int[5];
-        int[] listeDesRelancer = new int[5];
 
         lesFaces = tirerTousLesDes();
 
@@ -140,17 +117,11 @@ public class YahtzeeProcedural {
         // Permet 2 relance
         for (int j = 0; j < 2; j++) {
 
-            listeDesRelancer =  relancerLesDes();
+            int[] listeDesRelancer =  relancerLesDes();
 
-            // relance les des choisis par l'utilisateur
-            for (int i = 0; i < listeDesRelancer.length; i++) {
-               if (listeDesRelancer[i] != 5) {
-                    lesFaces[listeDesRelancer[i]] = tirerUnDe();
-               }
-            }
+            relancerLesDesChoisi(listeDesRelancer, lesFaces);
 
             afficherDe(lesFaces);
         }
     }
-
 }
