@@ -79,17 +79,16 @@ public class YahtzeeProcedural {
     /**
      *
      * @param listeDes
-     * @param chiffreACompter
      * @return
      */
-    public static int compterOccurence(int[] listeDes, int chiffreACompter) {
+    public static int[] compterOccurence(int[] listeDes) {
 
-        int nbrOccurences = 0;
+        int[] nbrOccurences = new int[6]; // INDEX 0 = occurence chiffre 1 / INDEX 1 = occurence chiifre 2 / ...
 
-        for (int i = 0; i < 5; i++) {
-           if (listeDes[i] ==  chiffreACompter) {
-               nbrOccurences++;
-           }
+        for (int chiffre : listeDes) {
+
+            nbrOccurences[chiffre - 1]++;
+
         }
 
         return nbrOccurences;
@@ -141,5 +140,12 @@ public class YahtzeeProcedural {
             }
 
         } while (compteur < 2 && !arreterParUtilisateur);
+
+        int[] occurences = compterOccurence(lesFaces);
+
+        for (int i = 0; i < 6; i++) {
+            System.out.println("Nombre de fois le chiffre " + (i + 1) + " : " + occurences[i]);
+        }
+
     }
 }
