@@ -9,17 +9,6 @@ import java.util.Scanner;
 
 public class YahtzeeProcedural {
 
-    public enum Combinaisons {
-        PAIRE,
-        DOUBLEPAIRE,
-        BRELAN,
-        CARRE,
-        FULLHOUSE,
-        PETITESUITE,
-        GRANDESUITE,
-        YATHZEE
-    }
-
     /**
      * Génère un nombre aléatoire entre 1 et 6 (Imite un lancer de dé)
      *
@@ -353,36 +342,22 @@ public class YahtzeeProcedural {
      * @param listeDes la liste des dés
      */
     public static void afficherLesPoints(int[] listeDes) {
-        int[] points = lesPoints(listeDes);;
+        int[] points = lesPoints(listeDes);
+        String[] combinaisons = {
+                "Paire",
+                "Double Paire",
+                "Brelan",
+                "Carré",
+                "Full House",
+                "Petite Suite",
+                "Grande Suite",
+                "Yathzee"
+        };;
+
 
         for (int i = 0; i < 8; i++) {
-            System.out.print(CombinaisonEnToutesLettres(Combinaisons.values()[i]) + " : " + points[i] + "\n");
+            System.out.print(combinaisons[i] + " : " + points[i] + "\n");
         }
-    }
-
-    public static String CombinaisonEnToutesLettres(Combinaisons combinaison) {
-        String combinaisonEnToutesLettres = "";
-
-        switch (combinaison) {
-            case PAIRE:
-                combinaisonEnToutesLettres = "Paire"; break;
-            case DOUBLEPAIRE:
-                combinaisonEnToutesLettres = "Double Paire"; break;
-            case BRELAN:
-                combinaisonEnToutesLettres = "Brelan"; break;
-            case CARRE:
-                combinaisonEnToutesLettres = "Carré"; break;
-            case FULLHOUSE:
-                combinaisonEnToutesLettres = "Full House"; break;
-            case PETITESUITE:
-                combinaisonEnToutesLettres = "Petite Suite"; break;
-            case GRANDESUITE:
-                combinaisonEnToutesLettres = "Grande Suite"; break;
-            case YATHZEE:
-                combinaisonEnToutesLettres = "Yathzee"; break;
-        }
-
-        return combinaisonEnToutesLettres;
     }
 
     public static void main(String[] args) {
