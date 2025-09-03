@@ -9,6 +9,17 @@ import java.util.Scanner;
 
 public class YahtzeeProcedural {
 
+    public enum Combinaisons {
+        PAIRE,
+        DOUBLEPAIRE,
+        BRELAN,
+        CARRE,
+        FULLHOUSE,
+        PETITESUITE,
+        GRANDESUITE,
+        YATHZEE
+    }
+
     /**
      * Génère un nombre aléatoire entre 1 et 6 (Imite un lancer de dé)
      *
@@ -83,9 +94,22 @@ public class YahtzeeProcedural {
     }
 
     /**
-     *
-     * @param listeDes
-     * @return
+     * relance les dées choisient par l'utilisateur
+     * @param listeDesRelancer la liste des dées a relancer
+     * @param lesFaces         la liste des face a changer
+     */
+    public static void relancerLesDesChoisi(int[] listeDesRelancer, int[] lesFaces) {
+
+        // relance les des choisis par l'utilisateur
+        for (int i = 0; i < listeDesRelancer.length; i++) {
+            lesFaces[listeDesRelancer[i]] = tirerUnDe();
+        }
+    }
+
+    /**
+     * Compte le nombre d'occurence dans une liste de dés
+     * @param listeDes la liste des dés dont l'on veut compter les occurences
+     * @return avec les occurences (INDEX 0 = occurence chiffre 1 / INDEX 1 = occurence chiifre 2 / ...)
      */
     public static int[] compterOccurence(int[] listeDes) {
 
@@ -102,19 +126,10 @@ public class YahtzeeProcedural {
     }
 
     /**
-     * relance les dées choisient par l'utilisateur
-     *
-     * @param listeDesRelancer la liste des dées a relancer
-     * @param lesFaces         la liste des face a changer
+     * regarde s'il y a une paire dans une liste de dés
+     * @param listeDes la liste des dés dont l'on veut savoir s'il y a une paire
+     * @return une boolean vrai si il y a une paire false sinon
      */
-    public static void relancerLesDesChoisi(int[] listeDesRelancer, int[] lesFaces) {
-
-        // relance les des choisis par l'utilisateur
-        for (int i = 0; i < listeDesRelancer.length; i++) {
-            lesFaces[listeDesRelancer[i]] = tirerUnDe();
-        }
-    }
-
     public static boolean laPaire(int[] listeDes) {
 
         boolean paire = false;
@@ -128,24 +143,31 @@ public class YahtzeeProcedural {
 
     }
 
+    /**
+     * regarde s'il y a deux paire différentes dans un jet de dés
+     * @param listeDes la liste des dés dont l'on veut savoir s'il y a une double paire
+     * @return une boolean vrai si il y a une double paire false sinon
+     */
     public static boolean doublePaire(int[] listeDes) {
 
         boolean doublePaire = false;
+        int nbrPaire = 0;
         int[] occurences = compterOccurence(listeDes);
 
         for (int i = 0; i < 6; i++) {
             if (occurences[i] >= 2) {
-                for (int j = i + 1; j < 6; j++) {
-                    if (occurences[j] >= 2) {
-                        doublePaire = true;
-                    }
-                }
+               nbrPaire++;
             }
         }
 
-        return doublePaire;
+        return nbrPaire >= 2;
     }
 
+    /**
+     * regarde s'il y a un brelan dans un jet de dés
+     * @param listeDes la liste des dés dont l'on veut savoir s'il y a un brelan
+     * @return une boolean vrai si il y a un brelan false sinon
+     */
     public static boolean brelan(int[] listeDes) {
 
         boolean brelan = false;
@@ -160,6 +182,11 @@ public class YahtzeeProcedural {
 
     }
 
+    /**
+     * regarde s'il y a un carré dans un jet de dés
+     * @param listeDes la liste des dés dont l'on veut savoir s'il y a un carré
+     * @return une boolean vrai si il y a un carré false sinon
+     */
     public static boolean carre(int[] listeDes) {
 
         boolean carre = false;
@@ -174,20 +201,34 @@ public class YahtzeeProcedural {
 
     }
 
-    public static boolean yahtzee(int[] listeDes) {
-
-        boolean yahtzee = false;
-
+    /**
+     * regarde s'il y a un full house dans un jet de dés
+     * @param listeDes la liste des dés dont l'on veut savoir s'il y a un full house
+     * @return une boolean vrai si il y a un full house false sinon
+     */
+    public static boolean fullHouse(int[] listeDes) {
+        boolean brelan =  false;
+        boolean paire = false;
         int[] occurences = compterOccurence(listeDes);
-        for (int occurence : occurences) {
-            if (occurence >= 5) {
-                yahtzee = true;
+
+        for (int i = 0; i < 6; i++) {
+            if (occurences[i] == 2) {
+                paire = true;
+            }
+
+            if (occurences[i] == 3) {
+                brelan = true;
             }
         }
-        return yahtzee;
 
+        return brelan && paire;
     }
 
+    /**
+     * regarde s'il y a une petite suite dans un jet de dés
+     * @param listeDes la liste des dés dont l'on veut savoir s'il y a une petite suite
+     * @return une boolean vrai si il y a une petite suite false sinon
+     */
     public static boolean petiteSuite(int[] listeDes) {
         boolean petiteSuite = false;
         int[] occurences = compterOccurence(listeDes);
@@ -208,6 +249,11 @@ public class YahtzeeProcedural {
 
     }
 
+    /**
+     * regarde s'il y a une grande suite dans un jet de dés
+     * @param listeDes la liste des dés dont l'on veut savoir s'il y a une grande suite
+     * @return une boolean vrai si il y a une grande suite false sinon
+     */
     public static boolean grandeSuite(int[] listeDes) {
         boolean grandeSuite = false;
         int[] occurences = compterOccurence(listeDes);
@@ -224,31 +270,119 @@ public class YahtzeeProcedural {
 
     }
 
-    public static boolean fullHouse(int[] listeDes) {
-        boolean fullHouse = false;
+    /**
+     * regarde s'il y a un yahtzee dans un jet de dés
+     * @param listeDes la liste des dés dont l'on veut savoir s'il y a un yathzee
+     * @return une boolean vrai si il y a un yathzee false sinon
+     */
+    public static boolean yahtzee(int[] listeDes) {
+
+        boolean yahtzee = false;
+
         int[] occurences = compterOccurence(listeDes);
-
-        for (int i = 0; i < 6; i++) {
-            if (occurences[i] >= 2) {
-                for (int j = i + 1; j < 6; j++) {
-                    if (occurences[j] >= 3) {
-                        fullHouse = true;
-                    }
-                }
+        for (int occurence : occurences) {
+            if (occurence >= 5) {
+                yahtzee = true;
             }
         }
+        return yahtzee;
 
-        for (int i = 0; i < 6; i++) {
-            if (occurences[i] >= 3) {
-                for (int j = i + 1; j < 6; j++) {
-                    if (occurences[j] >= 2) {
-                        fullHouse = true;
-                    }
-                }
-            }
+    }
+
+    /**
+     * Calcule le nombre de points par combinaison
+     * @param listeDes la liste des dés
+     * @return un liste avec les différents points
+     */
+    public static int[] lesPoints(int[] listeDes) {
+        int[] lesPoints = new int[8];
+
+        if(laPaire(listeDes)) {
+            lesPoints[0] = 5;
         }
 
-        return fullHouse;
+        if(doublePaire(listeDes)) {
+            lesPoints[1] = 10;
+        }
+
+        if(brelan(listeDes)) {
+            int points = 0;
+
+            for (int i = 0; i < 6; i++) {
+                if (compterOccurence(listeDes)[i] >= 3) {
+                    points = 3 * (i + 1);
+                }
+            }
+
+            lesPoints[2] = points;
+        }
+
+        if(carre(listeDes)) {
+            int points = 0;
+
+            for (int i = 0; i < 6; i++) {
+                if (compterOccurence(listeDes)[i] >= 4) {
+                    points = 4 * (i + 1);
+                }
+            }
+
+            lesPoints[3] = points;
+        }
+
+        if(fullHouse(listeDes)) {
+            lesPoints[4] = 25;
+        }
+
+        if(petiteSuite(listeDes)) {
+            lesPoints[5] = 30;
+        }
+
+        if(grandeSuite(listeDes)) {
+            lesPoints[6] = 40;
+        }
+
+        if(yahtzee(listeDes)) {
+            lesPoints[7] = 50;
+        }
+
+        return lesPoints;
+    }
+
+    /**
+     * affiche les points des combinaisons
+     * @param listeDes la liste des dés
+     */
+    public static void afficherLesPoints(int[] listeDes) {
+        int[] points = lesPoints(listeDes);;
+
+        for (int i = 0; i < 8; i++) {
+            System.out.print(CombinaisonEnToutesLettres(Combinaisons.values()[i]) + " : " + points[i] + "\n");
+        }
+    }
+
+    public static String CombinaisonEnToutesLettres(Combinaisons combinaison) {
+        String combinaisonEnToutesLettres = "";
+
+        switch (combinaison) {
+            case PAIRE:
+                combinaisonEnToutesLettres = "Paire"; break;
+            case DOUBLEPAIRE:
+                combinaisonEnToutesLettres = "Double Paire"; break;
+            case BRELAN:
+                combinaisonEnToutesLettres = "Brelan"; break;
+            case CARRE:
+                combinaisonEnToutesLettres = "Carré"; break;
+            case FULLHOUSE:
+                combinaisonEnToutesLettres = "Full House"; break;
+            case PETITESUITE:
+                combinaisonEnToutesLettres = "Petite Suite"; break;
+            case GRANDESUITE:
+                combinaisonEnToutesLettres = "Grande Suite"; break;
+            case YATHZEE:
+                combinaisonEnToutesLettres = "Yathzee"; break;
+        }
+
+        return combinaisonEnToutesLettres;
     }
 
     public static void main(String[] args) {
@@ -295,77 +429,7 @@ public class YahtzeeProcedural {
             System.out.println("Nombre de fois le chiffre " + (i + 1) + " : " + occurences[i]);
         }
 
-        System.out.print("Une paire : ");
-        if (laPaire(lesFaces)) {
-            System.out.println("5 pts");
-        } else {
-            System.out.println("0 pts");
-        }
-
-        System.out.print("Une double paire : ");
-        if (doublePaire(lesFaces)) {
-            System.out.println("10 pts");
-        } else {
-            System.out.println("0 pts");
-        }
-
-        System.out.print("Un brelan : ");
-        if (brelan(lesFaces)) {
-            int points = 0;
-
-            for (int i = 0; i < 6; i++) {
-                if (occurences[i] >= 3) {
-                    points = 3 * (i + 1);
-                }
-            }
-
-            System.out.println(points + " pts");
-        } else {
-            System.out.println("0 pts");
-        }
-
-        System.out.print("Un carré : ");
-        if (carre(lesFaces)) {
-            int points = 0;
-
-            for (int i = 0; i < 6; i++) {
-                if (occurences[i] >= 3) {
-                    points = 4 * (i + 1);
-                }
-            }
-
-            System.out.println(points + " pts");
-        } else {
-            System.out.println("0 pts");
-        }
-
-        System.out.print("Un yathzee : ");
-        if (yahtzee(lesFaces)) {
-            System.out.println("50 pts");
-        } else {
-            System.out.println("0 pts");
-        }
-
-        System.out.print("petite suite : ");
-        if (petiteSuite(lesFaces)) {
-            System.out.println("30 pts");
-        } else {
-            System.out.println("0 pts");
-        }
-
-        System.out.print("grande suite : ");
-        if (grandeSuite(lesFaces)) {
-            System.out.println("40 pts");
-        } else {
-            System.out.println("0 pts");
-        }
-
-        System.out.print("full house : ");
-        if (fullHouse(lesFaces)) {
-            System.out.println("25 pts");
-        } else {
-            System.out.println("0 pts");
-        }
+        afficherLesPoints(lesFaces);
 
     }
 }
