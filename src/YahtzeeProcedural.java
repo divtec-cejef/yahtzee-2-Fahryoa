@@ -254,13 +254,14 @@ public class YahtzeeProcedural {
     public static void main(String[] args) {
 
         int[] lesFaces = new int[5];
+        lesFaces = tirerTousLesDes();
 
-        lesFaces[0] = 2;
+       /* lesFaces[0] = 2;
         lesFaces[1] = 2;
         lesFaces[2] = 2;
         lesFaces[3] = 2;
         lesFaces[4] = 1;
-
+*/
         afficherDe(lesFaces);
 
         int compteur = 0;
@@ -310,14 +311,30 @@ public class YahtzeeProcedural {
 
         System.out.print("Un brelan : ");
         if (brelan(lesFaces)) {
-            System.out.println("TODO");
+            int points = 0;
+
+            for (int i = 0; i < 6; i++) {
+                if (occurences[i] >= 3) {
+                    points = 3 * (i + 1);
+                }
+            }
+
+            System.out.println(points + " pts");
         } else {
             System.out.println("0 pts");
         }
 
         System.out.print("Un carré : ");
         if (carre(lesFaces)) {
-            System.out.println("TODO");
+            int points = 0;
+
+            for (int i = 0; i < 6; i++) {
+                if (occurences[i] >= 3) {
+                    points = 4 * (i + 1);
+                }
+            }
+
+            System.out.println(points + " pts");
         } else {
             System.out.println("0 pts");
         }
