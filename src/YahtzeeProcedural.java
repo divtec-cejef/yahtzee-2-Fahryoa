@@ -418,53 +418,6 @@ public class YahtzeeProcedural {
 
     }
 
-    public static int Manche(String[] combinaisons) {
-        int[] lesFaces = tirerTousLesDes();
-
-    /*
-    // Pour tests
-    lesFaces[0] = 2;
-    lesFaces[1] = 2;
-    lesFaces[2] = 2;
-    lesFaces[3] = 2;
-    lesFaces[4] = 1;
-    */
-
-        afficherDe(lesFaces);
-
-        int compteur = 0;
-        int[] listeDesRelancer;
-        boolean arreterParUtilisateur = false;
-
-        // Permet 2 relances ou de quitter si l'utilisateur saisit 6
-        do {
-            listeDesRelancer = demanderLesDes();
-
-            if (listeDesRelancer[0] == 5) {
-                arreterParUtilisateur = true;
-            } else {
-                relancerLesDesChoisi(listeDesRelancer, lesFaces);
-                afficherDe(lesFaces);
-                compteur++;
-            }
-        } while (compteur < 2 && !arreterParUtilisateur);
-
-        // Points avant suppression d'une combinaison
-        int[] points = lesPoints(lesFaces, combinaisons);
-        afficherLesPoints(combinaisons, points);
-
-        // Choix de combinaison par l'utilisateur
-        combinaisons = QuestionneCombinaisons(combinaisons);
-
-
-        // Points après suppression
-        int[] points2 = lesPoints(lesFaces, combinaisons);
-        afficherLesPoints(combinaisons, points2);
-
-        return 0;
-
-    }
-
     public static void main(String[] args) {
 
         String[] combinaisons = {
@@ -483,16 +436,18 @@ public class YahtzeeProcedural {
         for (int i = 0; i < 5; i++) {
             //int point = Manche(combinaisons);
 
+            System.out.println("Manche " + (i + 1) + " / 5" );
+
             int[] lesFaces = tirerTousLesDes();
 
     /*
-    // Pour tests
-    lesFaces[0] = 2;
-    lesFaces[1] = 2;
-    lesFaces[2] = 2;
-    lesFaces[3] = 2;
-    lesFaces[4] = 1;
-    */
+        // Pour tests
+        lesFaces[0] = 2;
+        lesFaces[1] = 2;
+        lesFaces[2] = 2;
+        lesFaces[3] = 2;
+        lesFaces[4] = 1;
+     */
 
             afficherDe(lesFaces);
 
@@ -523,10 +478,6 @@ public class YahtzeeProcedural {
             pointsTotal += calculePointSaisi(points, combinaisons);
 
             System.out.println("points actuel : " + pointsTotal);
-
-           // Points après suppression
-           // int[] points2 = lesPoints(lesFaces, combinaisons);
-           // afficherLesPoints(combinaisons, points2);
         }
 
         System.out.println("Points total : " + pointsTotal);
