@@ -1,4 +1,4 @@
-package Objet;
+package objet;
 
 /**
  * Un dé a jouer

@@ -1,4 +1,4 @@
-package Objet;
+package objet;
 
 public class ScoreCard {
 }
