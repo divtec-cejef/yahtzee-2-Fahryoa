@@ -6,9 +6,9 @@ package Objet;
 public class Die {
 
     // La face exposé du dés
-    private int FaceExpose;
+    private int FaceExpose = 1;
     // le nbr de faces du dés
-    private int nbrFaces;
+    private int nbrFaces = 6;
 
     /**
      * Constructeur de dés
@@ -16,8 +16,8 @@ public class Die {
      * @param nbrFaces le nbr de faces du dés
      */
     public Die(int FaceExpose, int nbrFaces) {
-        setFaceExpose(FaceExpose);
         setNbrFaces(nbrFaces);
+        setFaceExpose(FaceExpose);
     }
 
     /**
@@ -25,17 +25,13 @@ public class Die {
      * @param nbrFaces le nbr de faces du dés
      */
     public Die(int nbrFaces) {
-        setFaceExpose(1);
         setNbrFaces(nbrFaces);
     }
 
     /**
      * Constructeur de dés
      */
-    public Die() {
-        setFaceExpose(1);
-        setNbrFaces(6);
-    }
+    public Die() {}
 
     /**
      * Lance le dés (change la face exposé entre 1 - et le nbr de face)
