@@ -378,6 +378,46 @@ public class YahtzeeProcedural {
 
     }
 
+    public static int calculePointSaisi(int[] points, String[] listeCombinaison) {
+
+        int sommePoints = 0;
+
+        if (listeCombinaison[0].isEmpty()) {
+            sommePoints += points[0];
+        }
+
+        if (listeCombinaison[1].isEmpty()) {
+            sommePoints += points[1];
+        }
+
+        if (listeCombinaison[2].isEmpty()) {
+            sommePoints += points[2];
+        }
+
+        if (listeCombinaison[3].isEmpty()) {
+            sommePoints += points[3];
+        }
+
+        if (listeCombinaison[4].isEmpty()) {
+            sommePoints += points[4];
+        }
+
+        if (listeCombinaison[5].isEmpty()) {
+            sommePoints += points[5];
+        }
+
+        if (listeCombinaison[6].isEmpty()) {
+            sommePoints += points[6];
+        }
+
+        if (listeCombinaison[7].isEmpty()) {
+            sommePoints += points[7];
+        }
+
+        return sommePoints;
+
+    }
+
     public static int Manche(String[] combinaisons) {
         int[] lesFaces = tirerTousLesDes();
 
@@ -438,6 +478,8 @@ public class YahtzeeProcedural {
                 "8) Yathzee"
         };
 
+        int pointsTotal = 0;
+
         for (int i = 0; i < 5; i++) {
             //int point = Manche(combinaisons);
 
@@ -478,12 +520,18 @@ public class YahtzeeProcedural {
             // Choix de combinaison par l'utilisateur
             combinaisons = QuestionneCombinaisons(combinaisons);
 
+            pointsTotal += calculePointSaisi(points, combinaisons);
 
-            // Points après suppression
-            int[] points2 = lesPoints(lesFaces, combinaisons);
-            afficherLesPoints(combinaisons, points2);
+            System.out.println("points actuel : " + pointsTotal);
+
+           // Points après suppression
+           // int[] points2 = lesPoints(lesFaces, combinaisons);
+           // afficherLesPoints(combinaisons, points2);
         }
+
+        System.out.println("Points total : " + pointsTotal);
+
     }
 }
 
-// variable = condition ? true : false
+// if sur une ligne : condition ? true : false
