@@ -289,7 +289,6 @@ public class YahtzeeProcedural {
 
     /**
      * Calcule le nombre de points par combinaison
-     *
      * @param listeDes la liste des dés
      * @return un liste avec les différents points
      */
@@ -349,10 +348,10 @@ public class YahtzeeProcedural {
 
     /**
      * affiche les points des combinaisons
-     *
-     * @param listeDes la liste des dés
+     * @param combinaisons Les combinaisons du jeux
+     * @param points
      */
-    public static void afficherLesPoints(int[] listeDes, String[] combinaisons, int[] points) {
+    public static void afficherLesPoints(String[] combinaisons, int[] points) {
 
         for (int i = 0; i < combinaisons.length; i++) {
             if (!combinaisons[i].isEmpty()) {
@@ -361,6 +360,11 @@ public class YahtzeeProcedural {
         }
     }
 
+    /**
+     * Demande a l'utilisateur quelle combinaison veut-il faire
+     * @param listeCombinaison la liste des combinaisons possible
+     * @return La combinaison que l'utilisateur a saisie
+     */
     public static String[] QuestionneCombinaisons(String[] listeCombinaison) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Entrez une combinaisons (1 - 8) : ");
@@ -374,23 +378,55 @@ public class YahtzeeProcedural {
 
     }
 
-    public static void main(String[] args) {
+    public static int Manche(String[] combinaisons) {
+        int[] lesFaces = tirerTousLesDes();
 
-        int[] lesFaces = new int[5];
-        lesFaces = tirerTousLesDes();
+    /*
+    // Pour tests
+    lesFaces[0] = 2;
+    lesFaces[1] = 2;
+    lesFaces[2] = 2;
+    lesFaces[3] = 2;
+    lesFaces[4] = 1;
+    */
 
-/*
-        lesFaces[0] = 2;
-        lesFaces[1] = 2;
-        lesFaces[2] = 2;
-        lesFaces[3] = 2;
-        lesFaces[4] = 1;
-*/
         afficherDe(lesFaces);
 
         int compteur = 0;
         int[] listeDesRelancer;
         boolean arreterParUtilisateur = false;
+
+        // Permet 2 relances ou de quitter si l'utilisateur saisit 6
+        do {
+            listeDesRelancer = demanderLesDes();
+
+            if (listeDesRelancer[0] == 5) {
+                arreterParUtilisateur = true;
+            } else {
+                relancerLesDesChoisi(listeDesRelancer, lesFaces);
+                afficherDe(lesFaces);
+                compteur++;
+            }
+        } while (compteur < 2 && !arreterParUtilisateur);
+
+        // Points avant suppression d'une combinaison
+        int[] points = lesPoints(lesFaces, combinaisons);
+        afficherLesPoints(combinaisons, points);
+
+        // Choix de combinaison par l'utilisateur
+        combinaisons = QuestionneCombinaisons(combinaisons);
+
+
+        // Points après suppression
+        int[] points2 = lesPoints(lesFaces, combinaisons);
+        afficherLesPoints(combinaisons, points2);
+
+        return 0;
+
+    }
+
+    public static void main(String[] args) {
+
         String[] combinaisons = {
                 "1) Paire",
                 "2) Double Paire",
@@ -402,47 +438,51 @@ public class YahtzeeProcedural {
                 "8) Yathzee"
         };
 
-        // Permet 2 relance ou de quitter si l'utilisateur saisie 6
-        do {
+        for (int i = 0; i < 5; i++) {
+            //int point = Manche(combinaisons);
 
-            listeDesRelancer = demanderLesDes();
+            int[] lesFaces = tirerTousLesDes();
 
-            if (listeDesRelancer[0] == 5) {
+    /*
+    // Pour tests
+    lesFaces[0] = 2;
+    lesFaces[1] = 2;
+    lesFaces[2] = 2;
+    lesFaces[3] = 2;
+    lesFaces[4] = 1;
+    */
 
-                arreterParUtilisateur = true;
+            afficherDe(lesFaces);
 
-            } else {
+            int compteur = 0;
+            int[] listeDesRelancer;
+            boolean arreterParUtilisateur = false;
 
-                relancerLesDesChoisi(listeDesRelancer, lesFaces);
+            // Permet 2 relances ou de quitter si l'utilisateur saisit 6
+            do {
+                listeDesRelancer = demanderLesDes();
 
-                afficherDe(lesFaces);
+                if (listeDesRelancer[0] == 5) {
+                    arreterParUtilisateur = true;
+                } else {
+                    relancerLesDesChoisi(listeDesRelancer, lesFaces);
+                    afficherDe(lesFaces);
+                    compteur++;
+                }
+            } while (compteur < 2 && !arreterParUtilisateur);
 
-                compteur++;
+            // Points avant suppression d'une combinaison
+            int[] points = lesPoints(lesFaces, combinaisons);
+            afficherLesPoints(combinaisons, points);
 
-            }
+            // Choix de combinaison par l'utilisateur
+            combinaisons = QuestionneCombinaisons(combinaisons);
 
-        } while (compteur < 2 && !arreterParUtilisateur);
 
-        int[] occurences = compterOccurence(lesFaces);
-
-/*
-        for (int i = 0; i < 6; i++) {
-            System.out.println("Nombre de fois le chiffre " + (i + 1) + " : " + occurences[i]);
+            // Points après suppression
+            int[] points2 = lesPoints(lesFaces, combinaisons);
+            afficherLesPoints(combinaisons, points2);
         }
-*/
-        int[] points = new int[8];
-        points = lesPoints(lesFaces, combinaisons);
-
-        afficherLesPoints(lesFaces, combinaisons, points);
-
-        String[] nouvelleCombinaisons = QuestionneCombinaisons(combinaisons);
-
-        int[] points2 = new int[8];
-
-        points2 = lesPoints(lesFaces, nouvelleCombinaisons);
-
-        afficherLesPoints(lesFaces, nouvelleCombinaisons, points2);
-
     }
 }
 
