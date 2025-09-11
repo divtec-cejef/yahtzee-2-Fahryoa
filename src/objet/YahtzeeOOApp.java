@@ -12,14 +12,16 @@ public class YahtzeeOOApp {
 
         DiceHand main1 =  new DiceHand(5);
         Die[] lesDes = main1.getLesDes();
-        for (Die de : lesDes) {
-            System.out.println(de.getFaceExpose());
-        }
-        int[] desARelancer = {4, 5};
-        main1.relanceLesDes(desARelancer);
+
         for (Die de : lesDes) {
             System.out.println(de.getFaceExpose());
         }
 
+        int[] desARelancer = {4, 5};
+        main1.relanceLesDes(desARelancer);
+
+        for (Die de : lesDes) {
+            System.out.println(de.getFaceExpose());
+        }
     }
 }
