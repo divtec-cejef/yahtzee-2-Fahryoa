@@ -3,15 +3,16 @@ package objet;
 public class ScoreEntry {
 
     private Category combinaisons;
-    private int score;
+    private int points;
+    private DiceHand jetFinal;
 
-    public ScoreEntry(Category combinaisons) {
+    public ScoreEntry(Category combinaisons, int points, DiceHand jetFinal) {
         this.combinaisons = combinaisons;
-        this.score = 0;
+        this.points = 0;
     }
 
     public int getScore() {
-        return score;
+        return points;
     }
 
     public Category getCombinaisons() {

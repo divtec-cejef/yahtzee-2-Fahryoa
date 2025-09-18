@@ -6,7 +6,7 @@
 
 import java.util.Scanner;
 
-public class YahtzeeProcedural {
+ public class YahtzeeProcedural {
 
     /**
      * Génère un nombre aléatoire entre 1 et 6 (Imite un lancer de dé)

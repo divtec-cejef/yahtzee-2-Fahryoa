@@ -1,4 +1,5 @@
 package objet;
+import java.util.Random;
 
 public class YahtzeeOOApp {
 
@@ -6,7 +7,7 @@ public class YahtzeeOOApp {
 
         Die de1 = new Die(6);
 
-        System.out.println(de1.getFaceExpose() + "☺");
+        System.out.println(de1.getFaceExpose());
         de1.lancer();
         System.out.println(de1.getFaceExpose());
 

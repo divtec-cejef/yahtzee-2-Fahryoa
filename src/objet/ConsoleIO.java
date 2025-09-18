@@ -21,4 +21,34 @@ public class ConsoleIO {
         }
     }
 
+    public int[] demanderDesRelancer() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Relancer les dés (1 - 5) ou quitter (6) \n");
+        String ligne = scanner.nextLine();
+
+        // Supprime tous les espaces et crée un liste String avec les chiffres saisies
+        String[] valeur = ligne.trim().split("\\s+");
+
+        int[] tableauDes = new int[valeur.length];
+
+        //Transforme les valeurs String en int
+        for (int i = 0; i < valeur.length; i++) {
+            tableauDes[i] = Integer.parseInt(valeur[i]) - 1;
+        }
+
+        return tableauDes;
+    }
+
+    public void afficherCombinaison(DiceHand laMain, int[] combinaisonsAAfficher) {
+        for(int i = 0; i < combinaisonsAAfficher.length; i++) {
+            System.out.println(Category.values()[combinaisonsAAfficher[i]] + " : "
+                    + Category.values()[combinaisonsAAfficher[i]].score(laMain));
+        }
+    }
+
+    public int demanderComabinaisons() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
 }

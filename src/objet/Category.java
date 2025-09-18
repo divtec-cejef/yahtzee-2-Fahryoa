@@ -16,12 +16,28 @@ public enum Category {
     },
     BRELAN("Brelan") {
         public int score(DiceHand hand) {
-            return 0;
+            int points = 0;
+
+            for (int i = 0; i < 6; i++) {
+                if (hand.compterOccurence()[i] >= 3) {
+                    points = 3 * (i + 1);
+                }
+            }
+
+            return points;
         }
     },
     CARRE("Carre") {
         public int score(DiceHand hand) {
-            return 0;
+            int points = 0;
+
+            for (int i = 0; i < 6; i++) {
+                if (hand.compterOccurence()[i] >= 4) {
+                    points = 4 * (i + 1);
+                }
+            }
+
+            return points;
         }
     },
     FULL_HOUSE("Full House") {
