@@ -23,7 +23,7 @@ public class ConsoleIO {
 
     public int[] demanderDesRelancer() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Relancer les dés (1 - 5) ou quitter (6) \n");
+        System.out.print("Relancer les dés (1 - 5) ou quitter (7) \n");
         String ligne = scanner.nextLine();
 
         // Supprime tous les espaces et crée un liste String avec les chiffres saisies
@@ -41,8 +41,10 @@ public class ConsoleIO {
 
     public void afficherCombinaison(DiceHand laMain, int[] combinaisonsAAfficher) {
         for(int i = 0; i < combinaisonsAAfficher.length; i++) {
-            System.out.println(Category.values()[combinaisonsAAfficher[i]] + " : "
-                    + Category.values()[combinaisonsAAfficher[i]].score(laMain));
+            if(combinaisonsAAfficher[i] > 0) {
+            System.out.println(Category.values()[combinaisonsAAfficher[i] - 1].getNomCategorie() + " : "
+                    + Category.values()[combinaisonsAAfficher[i] - 1].score(laMain));
+            }
         }
     }
 
@@ -51,4 +53,7 @@ public class ConsoleIO {
         return scanner.nextInt();
     }
 
+    public void afficherUnScore(int pointTotal) {
+        System.out.println("Les points total : " + pointTotal);
+    }
 }

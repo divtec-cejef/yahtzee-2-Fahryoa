@@ -47,8 +47,8 @@ public class DiceHand {
 
     public int[] compterOccurence() {
         int[] occurence = new int[lesDes[0].nbrFace];
-        for (int i = 0; i < lesDes[0].nbrFace; i++) {
-            occurence[i]++;
+        for (int i = 0; i < occurence.length - 1; i++) {
+            occurence[lesDes[i].getFaceExpose() - 1]++;
         }
 
         return occurence;
@@ -168,7 +168,7 @@ public class DiceHand {
         int[] occurence = compterOccurence();
 
         for (int i = 0; i < occurence.length; i++) {
-            if (occurence[i] >= 2) {
+            if (occurence[i] >= 5) {
                 estYahtzee = true;
             }
         }
